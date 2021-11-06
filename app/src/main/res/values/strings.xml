@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">R6</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="name">Nombres</string>
+    <string name="secondName">Apellidos</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Telefono</string>
+    <string name="org">ORG</string>
+    <string name="nick">Apodo</string>
+    <string name="hability">Habilidad</string>
+    <string name="OperatorName">Nombre</string>
+    <string name="type">Tipo</string>
+    <string name="regOp">Registrar Operador</string>
+    <string name="empty"></string>
+    <string-array name="types">
+        <item>Defensor</item>
+        <item>Atacante</item>
+    </string-array>
+    <string name="registrarCuenta">Registrar nueva cuenta</string>
+</resources>

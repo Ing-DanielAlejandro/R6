@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.415625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_add_photo_alternate_24.xml" value="0.11388888888888889" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.415625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_insert_photo_24.xml" value="0.415625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.590625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.415625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_mode_edit_24.xml" value="0.415625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.590625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.415625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/drawable/ic_launcher_background.xml" value="0.590625" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout-land/activity_main.xml" value="0.486331569664903" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout-land/activity_menu_principal.xml" value="0.33" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout-land/activity_registrar_operador.xml" value="0.486331569664903" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout-land/activity_registrar_usuario.xml" value="0.486331569664903" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout-land/activity_ver_operador.xml" value="0.486331569664903" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout-land/lista_item_operador.xml" value="0.486331569664903" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_menu_principal.xml" value="0.33" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_registrar_operador.xml" value="0.25" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_registrar_usuario.xml" value="0.33" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_ver_atacantes.xml" value="0.39947916666666666" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_ver_defensores.xml" value="0.33" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/activity_ver_operador.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/lista_item_operador.xml" value="0.33" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/toolbar.xml" value="0.5744791666666667" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/layout/veroperadores.xml" value="0.5114583333333333" />
+        <entry key="..\:/Users/el-at/AndroidStudioProjects/R6/app/src/main/res/menu/menu.xml" value="0.5744791666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
