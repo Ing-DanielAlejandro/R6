@@ -1,10 +1,12 @@
 package com.example.r6;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -13,33 +15,57 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.r6.Adaptadores.listaOperadoresAdapter;
-import com.example.r6.DB.DbOperadores;
 import com.example.r6.entidades.Operadores;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class VerAtacantes extends AppCompatActivity {
+public class VerAtacantes extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
-    RecyclerView listaOperadores;
-    ArrayList<Operadores> listaArrayOperadores;
+    RecyclerView recyclerOperadores;
+    ArrayList<Operadores> listaOperadores;
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
+    ProgressDialog progreso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_defensores);
-        listaOperadores = findViewById(R.id.listaOperadores);
-        listaOperadores.setLayoutManager(new LinearLayoutManager(this));
-        DbOperadores dbOperadores = new DbOperadores(VerAtacantes.this);
-        listaArrayOperadores = new ArrayList<>();
-        listaOperadoresAdapter adapter = new listaOperadoresAdapter(dbOperadores.mostrarOperadoresAt());
-        listaOperadores.setAdapter(adapter);
+
+        listaOperadores = new ArrayList<>();
+        recyclerOperadores=(RecyclerView) findViewById(R.id.listaOperadores);
+        recyclerOperadores.setLayoutManager(new LinearLayoutManager(this));
+        recyclerOperadores.setHasFixedSize(true);
+        request = Volley.newRequestQueue(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        cargarWebService();
 
+    }
 
+    private void cargarWebService() {
+        progreso = new ProgressDialog(VerAtacantes.this);
+        progreso.setMessage("Cargando");
+        progreso.show();
+        request = Volley.newRequestQueue(this);
+
+        String url="https://operadoresr6.000webhostapp.com/wsJSONConsultarAtacante.php?tipo=Atacante";
+        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        request.add(jsonObjectRequest);
     }
 
     @Override
@@ -72,5 +98,38 @@ public class VerAtacantes extends AppCompatActivity {
             }).show();
         }
         return true;
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(VerAtacantes.this,"No se pudo cargar error: "+error.toString(),Toast.LENGTH_LONG).show();
+        progreso.hide();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        progreso.hide();
+        Operadores operadores = null;
+        JSONArray json = response.optJSONArray("operador");
+
+        try{
+            for(int i = 0;i<json.length();i++){
+                operadores = new Operadores();
+                JSONObject jsonObject = null;
+                jsonObject=json.getJSONObject(i);
+                operadores.setId(jsonObject.optInt("id"));
+                operadores.setApodo(jsonObject.optString("apodo"));
+                operadores.setORG(jsonObject.optString("org"));
+                operadores.setImagen(jsonObject.optString("imagen"));
+                operadores.setTipo(jsonObject.optString("tipo"));
+                operadores.setHabilidad(jsonObject.optString("habilidad"));
+                listaOperadores.add(operadores);
+            }
+            listaOperadoresAdapter adapter = new listaOperadoresAdapter(listaOperadores);
+            recyclerOperadores.setAdapter(adapter);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 }

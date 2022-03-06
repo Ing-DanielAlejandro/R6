@@ -2,34 +2,39 @@ package com.example.r6;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.r6.entidades.Usuarios;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.example.r6.DB.DBHelper;
-import com.example.r6.DB.DbUsuarios;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
     ImageView logo;
     EditText user,pass;
     Button lgn;
     TextView txtReg;
-    DbUsuarios dbUsuarios;
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +54,10 @@ public class MainActivity extends AppCompatActivity {
         user.startAnimation(fadeIn);
         pass.startAnimation(fadeIn);
         lgn.startAnimation(fadeIn);
-        cargarPreferencias();
-        DBHelper dbHelper = new DBHelper(MainActivity.this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        dbUsuarios = new DbUsuarios(this);
 
+        cargarPreferencias();
+
+        request = Volley.newRequestQueue(this);
 
         txtReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +70,12 @@ public class MainActivity extends AppCompatActivity {
         lgn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String u = user.getText().toString(), p =pass.getText().toString();
+
                     if(user.getText().toString().equals("")||pass.getText().toString().equals("")){
                         Toast.makeText(MainActivity.this,"Campos vacios",Toast.LENGTH_SHORT).show();
-                    }else if(dbUsuarios.login(user.getText().toString(),pass.getText().toString())==1){
+                    }else{
                         guardarPreferencias();
-                        Intent i = new Intent(MainActivity.this,MenuPrincipal.class);
-                        startActivity(i);
+                        cargarWebService();
                     }
 
 
@@ -80,6 +83,46 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void cargarWebService() {
+        String url="https://operadoresr6.000webhostapp.com/wsJSONConsultarUsuario.php?usuario="+user.getText().toString();
+        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        request.add(jsonObjectRequest);
+    }
+
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(MainActivity.this,"Error: "+error.toString(),Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onResponse(JSONObject response) {
+
+        Usuarios usuarios = new Usuarios();
+        JSONArray json;
+        json = response.optJSONArray("usuario");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = json.getJSONObject(0);
+            usuarios.setUsuario(jsonObject.optString("usuario"));
+            usuarios.setPassword(jsonObject.optString("password"));
+            usuarios.setNombre(jsonObject.optString("nombre"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        if( usuarios.getUsuario().equals(user.getText().toString()) && usuarios.getPassword().equals(pass.getText().toString()) ){
+            Intent i = new Intent(MainActivity.this,MenuPrincipal.class);
+            startActivity(i);
+        }else{
+            Toast.makeText(MainActivity.this,"Usuario y/o constraeña no coinicen ",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -126,5 +169,7 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
 
     }
+
+
 
 }

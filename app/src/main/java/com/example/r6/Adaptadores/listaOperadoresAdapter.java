@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.r6.R;
-import com.example.r6.VerDefensores;
 import com.example.r6.VerOperador;
 import com.example.r6.entidades.Operadores;
 
@@ -20,14 +19,19 @@ import java.util.ArrayList;
 
 public class listaOperadoresAdapter extends RecyclerView.Adapter<listaOperadoresAdapter.OperadorViewHolder> {
 
+
     ArrayList<Operadores> listaOperadores;
     public listaOperadoresAdapter(ArrayList<Operadores> listaOperadores){
         this.listaOperadores = listaOperadores;
     }
+
     @NonNull
     @Override
     public listaOperadoresAdapter.OperadorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_item_operador,null ,false);
+        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(layoutParams);
+
         return new OperadorViewHolder(view);
     }
 
@@ -42,7 +46,6 @@ public class listaOperadoresAdapter extends RecyclerView.Adapter<listaOperadores
     @Override
     public int getItemCount() {
         return listaOperadores.size();
-
     }
 
     public class OperadorViewHolder extends RecyclerView.ViewHolder {

@@ -1,7 +1,7 @@
 package com.example.r6.entidades;
 
 public class Operadores {
-    private int id;
+    private Integer id;
     private String apodo;
     private String nombre;
     private String ORG;
@@ -13,7 +13,7 @@ public class Operadores {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
